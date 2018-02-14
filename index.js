@@ -1,15 +1,21 @@
 const map = document.querySelector("#map")
+const night = document.querySelector("#night")
+const imgs = document.querySelectorAll("img")
 const osmLink = document.querySelector("#osmLink")
 
 //resizing the map
 function resize(){
     if(window.innerWidth > window.innerHeight){
-        map.style.height = window.innerHeight + "px"
-        map.style.width = window.innerHeight + "px"
+        for (const i of imgs){
+            i.style.height = window.innerHeight + "px"
+            i.style.width = window.innerHeight + "px"
+        }
     }
     else{
-        map.style.height = window.innerWidth + "px"
-        map.style.width = window.innerWidth + "px"
+        for (const i of imgs){
+            i.style.height = window.innerWidth + "px"
+            i.style.width = window.innerWidth + "px"
+        }
     }
 }
 
@@ -33,3 +39,14 @@ map.addEventListener("click", e => {
     const angle = Math.atan2(e.layerX - map.width / 2, e.layerY - map.height / 2) * 180 / Math.PI
     calcLongLat(distance, angle)
 })
+
+//rotating night img
+function rotateNight(){
+    const date = new Date()
+    const time = date.getHours() + date.getMinutes() / 60
+    night.style.transform = `rotateZ(${time * 15}deg)`
+}
+rotateNight()
+setInterval(() => {
+    rotateNight()
+}, 3600000)
