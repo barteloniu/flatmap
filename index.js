@@ -34,13 +34,13 @@ function calcLongLat(distance, angle){
 }
 
 //detecting clicks
-for (i of imgs){
-    i.addEventListener("click", e => {
-        const distance = Math.sqrt((e.layerX - map.width / 2) ** 2 + (e.layerY - map.height / 2) ** 2)
-        const angle = Math.atan2(e.layerX - map.width / 2, e.layerY - map.height / 2) * 180 / Math.PI
-        calcLongLat(distance, angle)
-    })
-}
+
+night.addEventListener("click", e => {
+    const distance = Math.sqrt((e.layerX - map.width / 2) ** 2 + (e.layerY - map.height / 2) ** 2)
+    const nightRot = parseFloat(night.style.transform.substring(night.style.transform.indexOf("(") + 1))
+    const angle = Math.atan2(e.layerX - map.width / 2, e.layerY - map.height / 2) * 180 / Math.PI - nightRot
+    calcLongLat(distance, angle)
+})
 
 //rotating night img
 function rotateNight(){
